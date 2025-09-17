@@ -9,6 +9,9 @@ const outfit = Outfit({ subsets: ["latin"], weight: ["400", "500", "600"] });
 export const metadata = {
     title: "GoCart. - Shop smarter",
     description: "GoCart. - Shop smarter",
+    icons: {
+        icon: '/favicon.ico',
+    },
 };
 
 export default function RootLayout({ children }) {

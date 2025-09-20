@@ -65,6 +65,7 @@ const ProductDetails = ({ product }) => {
                             </div>
                         )
                     }
+                    {/* docx----------------------- */}
                     <button onClick={() => !cart[productId] ? addToCartHandler() : router.push('/cart')} className="bg-slate-800 text-white px-10 py-3 text-sm font-medium rounded hover:bg-slate-900 active:scale-95 transition">
                         {!cart[productId] ? 'Add to Cart' : 'View Cart'}
                     </button>

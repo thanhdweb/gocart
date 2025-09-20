@@ -1,12 +1,16 @@
 'use client'
-import { dummyStoreDashboardData } from "@/assets/assets"
 import Loading from "@/components/Loading"
+import { useAuth } from "@clerk/nextjs"
+import axios from "axios"
 import { CircleDollarSignIcon, ShoppingBasketIcon, StarIcon, TagsIcon } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
 
 export default function Dashboard() {
+
+    const { getToken } = useAuth()
 
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$'
 
@@ -27,8 +31,17 @@ export default function Dashboard() {
         { title: 'Total Ratings', value: dashboardData.ratings.length, icon: StarIcon },
     ]
 
+    // Dummy data load simulation
     const fetchDashboardData = async () => {
-        setDashboardData(dummyStoreDashboardData)
+        try {
+            const token = await getToken()
+            const { data } = await axios.get('api/store/dashboard', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            setDashboardData(data.dashboardData)
+        } catch (error) {
+            toast.error(error?.response?.data?.error || error.message)
+        }
         setLoading(false)
     }
 
@@ -36,6 +49,7 @@ export default function Dashboard() {
         fetchDashboardData()
     }, [])
 
+    // Show loading indicator while fetching data
     if (loading) return <Loading />
 
     return (

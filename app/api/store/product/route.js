@@ -22,7 +22,7 @@ export async function POST(request) {
     const mrp = formData.get("mrp");
     const price = formData.get("price");
     const category = formData.get("category");
-    const images = formData.get("images");
+    const images = formData.getAll("images");
 
     if (
       !name ||
@@ -63,8 +63,8 @@ export async function POST(request) {
       data: {
         name,
         description,
-        mrp,
-        price,
+        mrp: Number(mrp),
+        price: Number(price),
         category,
         images: imagesUrl,
         storeId,

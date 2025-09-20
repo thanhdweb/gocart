@@ -6,6 +6,7 @@ import { useState } from "react"
 
 const ProductDescription = ({ product }) => {
 
+    // Tab State
     const [selectedTab, setSelectedTab] = useState('Description')
 
     return (
